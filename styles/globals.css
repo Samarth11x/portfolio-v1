@@ -1,0 +1,216 @@
+/**
+ * @file styles/globals.css
+ * @description Global CSS — design tokens, Tailwind base styles, and
+ * CSS custom properties consumed by the entire application.
+ *
+ * Architecture:
+ * 1. Tailwind directives
+ * 2. CSS custom properties (design tokens)
+ * 3. Base element resets & global defaults
+ * 4. Utility classes that can't live in Tailwind config
+ */
+
+@import 'tailwindcss';
+
+/* ── Design Tokens ─────────────────────────────────────────────────────────── */
+@layer base {
+  :root {
+    /* Background */
+    --color-background: 0 0% 100%;
+    --color-background-secondary: 240 5% 96%;
+    --color-background-tertiary: 240 6% 90%;
+
+    /* Foreground / text */
+    --color-foreground: 240 10% 4%;
+    --color-foreground-muted: 240 4% 46%;
+    --color-foreground-subtle: 240 5% 65%;
+
+    /* Brand accent */
+    --color-accent: 221 83% 53%;
+    --color-accent-hover: 221 83% 45%;
+    --color-accent-foreground: 0 0% 100%;
+
+    /* Border */
+    --color-border: 240 6% 90%;
+    --color-border-hover: 240 6% 80%;
+
+    /* Radius scale */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-full: 9999px;
+
+    /* Shadow scale */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+    /* Typography */
+    --font-inter: 'Inter', sans-serif;
+
+    /* Transition */
+    --transition-fast: 150ms ease;
+    --transition-normal: 300ms ease;
+    --transition-slow: 500ms ease;
+  }
+
+  .dark {
+    /* Background */
+    --color-background: 240 10% 4%;
+    --color-background-secondary: 240 4% 9%;
+    --color-background-tertiary: 240 4% 14%;
+
+    /* Foreground / text */
+    --color-foreground: 0 0% 98%;
+    --color-foreground-muted: 240 5% 65%;
+    --color-foreground-subtle: 240 4% 46%;
+
+    /* Brand accent */
+    --color-accent: 217 91% 60%;
+    --color-accent-hover: 217 91% 68%;
+    --color-accent-foreground: 0 0% 100%;
+
+    /* Border */
+    --color-border: 240 4% 16%;
+    --color-border-hover: 240 4% 24%;
+  }
+}
+
+/* ── Base Element Styles ────────────────────────────────────────────────────── */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    /* Smooth scroll for anchor navigation */
+    scroll-behavior: smooth;
+    /* Prevent layout shift from scrollbar appearing */
+    scrollbar-gutter: stable;
+    /* Reduce motion for users who prefer it */
+    @media (prefers-reduced-motion: reduce) {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: hsl(var(--color-background));
+    color: hsl(var(--color-foreground));
+    font-family: var(--font-inter);
+    line-height: 1.6;
+    /* Prevent FOUC on dark-mode toggle */
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+  }
+
+  /* Improve focus visibility for keyboard users */
+  :focus-visible {
+    outline: 2px solid hsl(var(--color-accent));
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Consistent selection colour */
+  ::selection {
+    background-color: hsl(var(--color-accent) / 0.2);
+    color: hsl(var(--color-foreground));
+  }
+
+  /* Typography scale resets */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Scrollbar styling (Chromium) */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--color-border));
+    border-radius: var(--radius-full);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--color-border-hover));
+  }
+}
+
+/* ── Utility Overrides ──────────────────────────────────────────────────────── */
+@layer utilities {
+  /* Convenience aliases mapping token names to Tailwind CSS variables */
+  .bg-background {
+    background-color: hsl(var(--color-background));
+  }
+
+  .text-foreground {
+    color: hsl(var(--color-foreground));
+  }
+
+  .text-muted {
+    color: hsl(var(--color-foreground-muted));
+  }
+
+  .text-subtle {
+    color: hsl(var(--color-foreground-subtle));
+  }
+
+  .border-default {
+    border-color: hsl(var(--color-border));
+  }
+
+  /* Section container — consistent horizontal padding */
+  .container-section {
+    width: 100%;
+    max-width: 72rem; /* 1152px */
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-section {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container-section {
+      padding-inline: 4rem;
+    }
+  }
+
+  /* Gradient text utility */
+  .gradient-text {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--color-accent)),
+      hsl(var(--color-accent-hover))
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}

@@ -1,0 +1,35 @@
+# =============================================================================
+# .gitattributes — enforce LF line endings for all text files
+# =============================================================================
+
+# Default: normalise all text files to LF on commit
+* text=auto eol=lf
+
+# Explicitly LF
+*.ts    text eol=lf
+*.tsx   text eol=lf
+*.js    text eol=lf
+*.mjs   text eol=lf
+*.json  text eol=lf
+*.css   text eol=lf
+*.md    text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+*.sh    text eol=lf
+*.env   text eol=lf
+
+# Binary — no transformation
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.avif  binary
+*.ico   binary
+*.svg   binary
+*.pdf   binary
+*.woff  binary
+*.woff2 binary
+*.eot   binary
+*.ttf   binary
+*.otf   binary
