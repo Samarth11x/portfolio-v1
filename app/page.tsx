@@ -17,9 +17,7 @@ import { techStackContent } from '@/content/techstack';
 export default function HomePage() {
   // Extract a few representative skills for the hero section
   const representativeSkills = [
-    ...techStackContent.find((c) => c.category === 'Frontend')?.items.slice(0, 3).map(i => i.name) || [],
-    ...techStackContent.find((c) => c.category === 'Backend')?.items.slice(0, 2).map(i => i.name) || [],
-    ...techStackContent.find((c) => c.category === 'Artificial Intelligence')?.items.slice(0, 1).map(i => i.name) || [],
+    'C', 'C++', 'Python', 'AI', 'Js', 'Html', 'OS', 'Networking'
   ];
 
   return (
