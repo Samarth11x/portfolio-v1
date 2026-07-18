@@ -20,7 +20,7 @@ export default function NotFound() {
             Page Not Found
           </h2>
           <p className="text-foreground-muted mb-8 max-w-md mx-auto">
-            The page you are looking for doesn't exist, has been moved, or is temporarily unavailable.
+            The page you are looking for doesn&apos;t exist, has been moved, or is temporarily unavailable.
           </p>
           <Link 
             href="/"

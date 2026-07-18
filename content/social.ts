@@ -26,7 +26,7 @@ export const socialContent: SocialContent = {
   },
   email: {
     platform: 'Email',
-    href: 'mailto:contact@samarth.dev', // Ensure real email is populated later
+    href: 'mailto:samarthpatil3996@gmail.com',
     external: true,
   },
   resume: {

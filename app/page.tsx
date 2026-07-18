@@ -84,7 +84,7 @@ export default function HomePage() {
               {/* Portrait */}
               <div className="relative w-48 h-48 sm:w-64 sm:h-64 rounded-full overflow-hidden border-4 border-background-elevated shadow-xl ring-1 ring-border/50">
                 <Image
-                  src="/images/portrait.svg"
+                  src="/images/portrait.png"
                   alt={`${heroContent.name} Portrait`}
                   fill
                   sizes="(max-width: 768px) 192px, 256px"

@@ -6,7 +6,7 @@ export function FinalCTA() {
   return (
     <div className="p-8 md:p-12 rounded-3xl bg-accent/5 border border-accent/20 text-center space-y-6">
       <p className="text-xl md:text-2xl text-foreground font-medium max-w-3xl mx-auto leading-relaxed">
-        "{recruiterContent.cta.message}"
+        &quot;{recruiterContent.cta.message}&quot;
       </p>
       <div className="pt-4 flex justify-center">
         <a 

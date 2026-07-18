@@ -34,28 +34,22 @@ export default function AboutPage() {
 
           <StatsGrid />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 py-12 md:py-24">
-            {/* Left Column: Journey */}
-            <div className="lg:col-span-7">
-              <AboutSection title="My Journey" className="py-0 md:py-0">
-                <JourneyTimeline />
-              </AboutSection>
-            </div>
+          <div className="flex flex-col space-y-16 lg:space-y-24 py-12 md:py-24 max-w-4xl mx-auto">
+            <AboutSection title="My Journey" className="py-0 md:py-0">
+              <JourneyTimeline />
+            </AboutSection>
 
-            {/* Right Column: Education & Philosophy */}
-            <div className="lg:col-span-5 space-y-16 lg:space-y-24">
-              <AboutSection title="Education" className="py-0 md:py-0">
-                <EducationCard />
-              </AboutSection>
-              
-              <AboutSection title="Core Philosophy" className="py-0 md:py-0">
-                <LearningPhilosophy />
-              </AboutSection>
+            <AboutSection title="Education" className="py-0 md:py-0">
+              <EducationCard />
+            </AboutSection>
+            
+            <AboutSection title="Core Philosophy" className="py-0 md:py-0">
+              <LearningPhilosophy />
+            </AboutSection>
 
-              <AboutSection title="Current Focus" className="py-0 md:py-0">
-                <InterestGrid />
-              </AboutSection>
-            </div>
+            <AboutSection title="Current Focus" className="py-0 md:py-0">
+              <InterestGrid />
+            </AboutSection>
           </div>
 
         </Container>

@@ -31,20 +31,15 @@ export default function EngineeringPage() {
             </p>
           </div>
 
-          <div className="space-y-4 md:space-y-8">
+          <div className="flex flex-col space-y-12 md:space-y-16 max-w-4xl mx-auto">
             
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16 items-start">
-              <div className="lg:col-span-2">
-                <EngineeringOverview title="Engineering Philosophy" description="The core principles that guide every technical decision I make.">
-                  <EngineeringPrinciples />
-                </EngineeringOverview>
-              </div>
-              <div className="lg:col-span-1 border-t border-border/30 pt-16 lg:pt-0 lg:border-t-0">
-                <EngineeringOverview title="Core Values">
-                  <EngineeringValues />
-                </EngineeringOverview>
-              </div>
-            </div>
+            <EngineeringOverview title="Engineering Philosophy" description="The core principles that guide every technical decision I make.">
+              <EngineeringPrinciples />
+            </EngineeringOverview>
+
+            <EngineeringOverview title="Core Values">
+              <EngineeringValues />
+            </EngineeringOverview>
 
             <EngineeringOverview title="Development Workflow" description="The rigorous lifecycle applied to transforming an idea into production-ready software.">
               <DevelopmentWorkflow />

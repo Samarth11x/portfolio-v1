@@ -31,7 +31,7 @@ export default function SkillsPage() {
             </p>
           </div>
 
-          <div className="space-y-4 md:space-y-8">
+          <div className="flex flex-col space-y-12 md:space-y-16 max-w-4xl mx-auto">
             
             {/* Core Stack */}
             <TechnicalToolbox 
@@ -56,7 +56,6 @@ export default function SkillsPage() {
               <LearningRoadmap />
             </TechnicalToolbox>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
               {/* Developer Environment */}
               <TechnicalToolbox 
                 title="Developer Environment" 
@@ -72,7 +71,6 @@ export default function SkillsPage() {
               >
                 <WorkflowSection />
               </TechnicalToolbox>
-            </div>
 
             {/* Certifications */}
             <TechnicalToolbox 
