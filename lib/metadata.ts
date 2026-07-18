@@ -9,7 +9,7 @@
 import type { Metadata } from 'next';
 
 import { SITE_URL } from '@/constants/site';
-import { siteConfig } from '@/data/site';
+import { seoContent } from '@/content/seo';
 
 interface MetadataOptions {
   /** Page-specific title. Appended to the site name. */
@@ -38,28 +38,32 @@ export function generateMetadata({
   noIndex = false,
 }: MetadataOptions = {}): Metadata {
   const pageTitle = title
-    ? `${title} | ${siteConfig.name}`
-    : siteConfig.name;
+    ? `${title} | ${seoContent.title.split(' | ')[0]}`
+    : seoContent.title;
 
-  const pageDescription = description ?? siteConfig.description;
+  const pageDescription = description ?? seoContent.description;
   const canonicalUrl = `${SITE_URL}${canonicalPath}`;
-  const ogImageUrl = ogImage ?? siteConfig.ogImage;
+  const ogImageUrl = ogImage ?? seoContent.ogImage;
 
   return {
     title: pageTitle,
     description: pageDescription,
+    keywords: seoContent.keywords,
+    authors: [{ name: 'Samarth Patil', url: SITE_URL }],
+    creator: 'Samarth Patil',
+    publisher: 'Samarth Patil',
     metadataBase: new URL(SITE_URL),
     alternates: {
       canonical: canonicalUrl,
     },
     robots: noIndex
       ? { index: false, follow: false }
-      : { index: true, follow: true },
+      : { index: true, follow: true, googleBot: { index: true, follow: true } },
     openGraph: {
       type: 'website',
       locale: 'en_US',
       url: canonicalUrl,
-      siteName: siteConfig.name,
+      siteName: seoContent.title.split(' | ')[0],
       title: pageTitle,
       description: pageDescription,
       images: [
@@ -75,6 +79,7 @@ export function generateMetadata({
       card: 'summary_large_image',
       title: pageTitle,
       description: pageDescription,
+      creator: seoContent.twitterHandle,
       images: [ogImageUrl],
     },
   };

@@ -26,8 +26,13 @@ export function useMediaQuery(query: string): boolean {
   useEffect(() => {
     const mediaQueryList = window.matchMedia(query);
 
-    // Sync initial value
-    setMatches(mediaQueryList.matches);
+    // Sync initial value asynchronously to avoid cascading renders
+    const initialMatch = mediaQueryList.matches;
+    if (initialMatch) {
+      setTimeout(() => {
+        setMatches(true);
+      }, 0);
+    }
 
     const handler = (event: MediaQueryListEvent): void => {
       setMatches(event.matches);

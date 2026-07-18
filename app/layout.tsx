@@ -14,7 +14,8 @@ import { Inter } from 'next/font/google';
 
 import '@/styles/globals.css';
 
-import { siteConfig } from '@/data/site';
+import { seoContent } from '@/content/seo';
+import { heroContent } from '@/content/hero';
 import { SITE_URL } from '@/constants/site';
 
 // ---------------------------------------------------------------------------
@@ -38,42 +39,34 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
+    default: seoContent.title,
+    template: `%s | ${seoContent.title}`,
   },
-  description: siteConfig.description,
-  keywords: [
-    'software engineer',
-    'portfolio',
-    'web developer',
-    'full-stack',
-    'React',
-    'Next.js',
-    'TypeScript',
-  ],
-  authors: [{ name: siteConfig.name, url: siteConfig.url }],
-  creator: siteConfig.name,
+  description: seoContent.description,
+  keywords: seoContent.keywords,
+  authors: [{ name: heroContent.name, url: seoContent.url }],
+  creator: heroContent.name,
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: siteConfig.url,
-    siteName: siteConfig.name,
-    title: siteConfig.name,
-    description: siteConfig.description,
+    url: seoContent.url,
+    siteName: heroContent.name,
+    title: seoContent.title,
+    description: seoContent.description,
     images: [
       {
-        url: siteConfig.ogImage,
+        url: seoContent.ogImage,
         width: 1200,
         height: 630,
-        alt: siteConfig.name,
+        alt: heroContent.name,
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: siteConfig.name,
-    description: siteConfig.description,
-    images: [siteConfig.ogImage],
+    title: seoContent.title,
+    description: seoContent.description,
+    images: [seoContent.ogImage],
   },
   robots: {
     index: true,
@@ -97,6 +90,10 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+import { ThemeProvider } from '@/components/layout/ThemeContext';
+import { SkipToContent } from '@/components/layout/SkipToContent';
+import { StructuredData } from '@/components/seo/StructuredData';
+
 // ---------------------------------------------------------------------------
 // Layout
 // ---------------------------------------------------------------------------
@@ -108,8 +105,21 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className={inter.variable} suppressHydrationWarning>
-      <body className="bg-background text-foreground antialiased">
-        {children}
+      <head>
+        <StructuredData />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("theme");if(!t){var m=window.matchMedia("(prefers-color-scheme: dark)");t=m.matches?"dark":"light"}document.documentElement.classList.add(t)}catch(e){}})()`,
+          }}
+        />
+      </head>
+      <body className="bg-background text-foreground antialiased min-h-screen flex flex-col transition-colors duration-300">
+        <SkipToContent />
+        <ThemeProvider>
+          <div id="main-content" className="flex flex-col flex-grow outline-none" tabIndex={-1}>
+            {children}
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

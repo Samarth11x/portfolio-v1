@@ -1,216 +1,233 @@
 /**
  * @file styles/globals.css
- * @description Global CSS — design tokens, Tailwind base styles, and
+ * @description Global CSS — design tokens, Tailwind v4 base styles, and
  * CSS custom properties consumed by the entire application.
  *
  * Architecture:
- * 1. Tailwind directives
- * 2. CSS custom properties (design tokens)
- * 3. Base element resets & global defaults
- * 4. Utility classes that can't live in Tailwind config
+ * 1. Tailwind directives & @theme custom configuration
+ * 2. CSS custom properties for light/dark theme tokens
+ * 3. Base resets & accessibility focus styles
+ * 4. Micro-animations and utility effects
  */
 
 @import 'tailwindcss';
 
-/* ── Design Tokens ─────────────────────────────────────────────────────────── */
-@layer base {
-  :root {
-    /* Background */
-    --color-background: 0 0% 100%;
-    --color-background-secondary: 240 5% 96%;
-    --color-background-tertiary: 240 6% 90%;
+/* ── Tailwind Theme Customization ────────────────────────────────────────── */
+@theme {
+  --color-background: var(--background);
+  --color-background-elevated: var(--background-elevated);
+  --color-background-hover: var(--background-hover);
 
-    /* Foreground / text */
-    --color-foreground: 240 10% 4%;
-    --color-foreground-muted: 240 4% 46%;
-    --color-foreground-subtle: 240 5% 65%;
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-subtle: var(--foreground-subtle);
 
-    /* Brand accent */
-    --color-accent: 221 83% 53%;
-    --color-accent-hover: 221 83% 45%;
-    --color-accent-foreground: 0 0% 100%;
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-foreground: var(--accent-foreground);
 
-    /* Border */
-    --color-border: 240 6% 90%;
-    --color-border-hover: 240 6% 80%;
+  --color-border: var(--border);
+  --color-border-hover: var(--border-hover);
+  --color-ring: var(--ring);
 
-    /* Radius scale */
-    --radius-sm: 0.375rem;
-    --radius-md: 0.5rem;
-    --radius-lg: 0.75rem;
-    --radius-xl: 1rem;
-    --radius-full: 9999px;
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
 
-    /* Shadow scale */
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
-    /* Typography */
-    --font-inter: 'Inter', sans-serif;
-
-    /* Transition */
-    --transition-fast: 150ms ease;
-    --transition-normal: 300ms ease;
-    --transition-slow: 500ms ease;
-  }
-
-  .dark {
-    /* Background */
-    --color-background: 240 10% 4%;
-    --color-background-secondary: 240 4% 9%;
-    --color-background-tertiary: 240 4% 14%;
-
-    /* Foreground / text */
-    --color-foreground: 0 0% 98%;
-    --color-foreground-muted: 240 5% 65%;
-    --color-foreground-subtle: 240 4% 46%;
-
-    /* Brand accent */
-    --color-accent: 217 91% 60%;
-    --color-accent-hover: 217 91% 68%;
-    --color-accent-foreground: 0 0% 100%;
-
-    /* Border */
-    --color-border: 240 4% 16%;
-    --color-border-hover: 240 4% 24%;
-  }
+  --animate-fade-in: fade-in 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-fade-out: fade-out 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-up: slide-up 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-down: slide-down 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-scale-in: scale-in 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-shimmer: shimmer 2s infinite linear;
 }
 
-/* ── Base Element Styles ────────────────────────────────────────────────────── */
-@layer base {
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slide-down {
+  from { transform: translateY(-12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes scale-in {
+  from { transform: scale(0.97); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ── Light / Dark Mode Tokens ────────────────────────────────────────────── */
+:root {
+  /* Spacing and Radius tokens */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --font-inter: var(--font-inter);
+
+  /* Light Theme Palette */
+  --background: #fafafa;
+  --background-elevated: #ffffff;
+  --background-hover: #f4f4f5;
+
+  --foreground: #09090b;
+  --foreground-muted: #71717a;
+  --foreground-subtle: #a1a1aa;
+
+  --accent: #6d28d9;
+  --accent-hover: #5b21b6;
+  --accent-foreground: #ffffff;
+
+  --border: #e4e4e7;
+  --border-hover: #d4d4d8;
+  --ring: #6d28d9;
+}
+
+/* Force Dark class mapping */
+.dark {
+  /* Dark Theme Palette */
+  --background: #0e0e10;
+  --background-elevated: #161619;
+  --background-hover: #1c1c21;
+
+  --foreground: #f4f4f5;
+  --foreground-muted: #a1a1aa;
+  --foreground-subtle: #52525b;
+
+  --accent: #a78bfa;
+  --accent-hover: #c4b5fd;
+  --accent-foreground: #0c0a09;
+
+  --border: #232327;
+  --border-hover: #303036;
+  --ring: #8b5cf6;
+}
+
+/* ── Base Element Styles ────────────────────────────────────────────────── */
+@layer base {
   html {
-    /* Smooth scroll for anchor navigation */
     scroll-behavior: smooth;
-    /* Prevent layout shift from scrollbar appearing */
     scrollbar-gutter: stable;
-    /* Reduce motion for users who prefer it */
+    /* Respect OS reduced-motion settings */
     @media (prefers-reduced-motion: reduce) {
       scroll-behavior: auto;
     }
   }
 
   body {
-    background-color: hsl(var(--color-background));
-    color: hsl(var(--color-foreground));
-    font-family: var(--font-inter);
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
     line-height: 1.6;
-    /* Prevent FOUC on dark-mode toggle */
-    transition: background-color var(--transition-normal), color var(--transition-normal);
+    transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Improve focus visibility for keyboard users */
+  /* Clear focus styles for accessibility compliance */
   :focus-visible {
-    outline: 2px solid hsl(var(--color-accent));
-    outline-offset: 3px;
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
     border-radius: var(--radius-sm);
   }
 
-  /* Consistent selection colour */
+  /* Text Selection color styling */
   ::selection {
-    background-color: hsl(var(--color-accent) / 0.2);
-    color: hsl(var(--color-foreground));
+    background-color: color-mix(in srgb, var(--accent) 25%, transparent);
+    color: var(--foreground);
   }
 
-  /* Typography scale resets */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-weight: 700;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
+  /* Typography headings configuration */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+    color: var(--foreground);
   }
 
-  img,
-  video {
-    max-width: 100%;
-    height: auto;
-    display: block;
+  h1 { font-size: 2.25rem; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.35rem; }
+
+  @media (min-width: 768px) {
+    h1 { font-size: 3rem; }
+    h2 { font-size: 2.25rem; }
+    h3 { font-size: 1.5rem; }
   }
 
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  /* Scrollbar styling (Chromium) */
+  /* Scrollbar styles matching premium minimal design */
   ::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
+    height: 8px;
   }
   ::-webkit-scrollbar-track {
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: hsl(var(--color-border));
+    background-color: var(--border);
     border-radius: var(--radius-full);
+    border: 2px solid var(--background);
   }
   ::-webkit-scrollbar-thumb:hover {
-    background-color: hsl(var(--color-border-hover));
+    background-color: var(--border-hover);
   }
 }
 
-/* ── Utility Overrides ──────────────────────────────────────────────────────── */
+/* ── Utility Classes ─────────────────────────────────────────────────────── */
 @layer utilities {
-  /* Convenience aliases mapping token names to Tailwind CSS variables */
-  .bg-background {
-    background-color: hsl(var(--color-background));
-  }
-
-  .text-foreground {
-    color: hsl(var(--color-foreground));
-  }
-
-  .text-muted {
-    color: hsl(var(--color-foreground-muted));
-  }
-
-  .text-subtle {
-    color: hsl(var(--color-foreground-subtle));
-  }
-
-  .border-default {
-    border-color: hsl(var(--color-border));
-  }
-
-  /* Section container — consistent horizontal padding */
-  .container-section {
-    width: 100%;
-    max-width: 72rem; /* 1152px */
-    margin-inline: auto;
-    padding-inline: 1.5rem;
-  }
-
-  @media (min-width: 768px) {
-    .container-section {
-      padding-inline: 2.5rem;
-    }
-  }
-
-  @media (min-width: 1280px) {
-    .container-section {
-      padding-inline: 4rem;
-    }
-  }
-
-  /* Gradient text utility */
-  .gradient-text {
-    background: linear-gradient(
-      135deg,
-      hsl(var(--color-accent)),
-      hsl(var(--color-accent-hover))
+  /* Ambient Cinematic Background Glows */
+  .bg-radial-glow {
+    background: radial-gradient(
+      800px circle at 50% 200px,
+      color-mix(in srgb, var(--accent) 7%, transparent),
+      transparent 80%
     );
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+  }
+
+  /* Shimmer background for loading skeleton components */
+  .animate-skeleton {
+    background: linear-gradient(
+      90deg,
+      var(--background-elevated) 25%,
+      var(--background-hover) 50%,
+      var(--background-elevated) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+  }
+
+  /* Glassmorphic elevation */
+  .glass-elevated {
+    background-color: color-mix(in srgb, var(--background-elevated) 80%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Safe transition wrapper */
+  .transition-theme {
+    transition: background-color 300ms cubic-bezier(0.16, 1, 0.3, 1),
+                color 300ms cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 300ms cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 300ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 }

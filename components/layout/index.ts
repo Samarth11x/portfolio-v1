@@ -1,15 +1,10 @@
 /**
  * @file components/layout/index.ts
- * @description Barrel export for all layout components.
- *
- * Layout components wrap sections of the page (Header, Footer, Section, etc.)
- * and handle structural concerns like max-width containment, spacing, and
- * sticky positioning.
- *
- * Import pattern: `import { Header } from '@/components/layout'`
+ * @description Barrel export for layout components.
  */
 
-// Components will be added in Sprint 1+
-// export { Header } from './Header';
-// export { Footer } from './Footer';
-// export { Section } from './Section';
+export { Container } from './Container';
+export { Section } from './Section';
+export { Header } from './Header';
+export { Footer } from './Footer';
+export { ThemeProvider, useTheme } from './ThemeContext';
