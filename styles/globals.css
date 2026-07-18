@@ -1,0 +1,233 @@
+/**
+ * @file styles/globals.css
+ * @description Global CSS — design tokens, Tailwind v4 base styles, and
+ * CSS custom properties consumed by the entire application.
+ *
+ * Architecture:
+ * 1. Tailwind directives & @theme custom configuration
+ * 2. CSS custom properties for light/dark theme tokens
+ * 3. Base resets & accessibility focus styles
+ * 4. Micro-animations and utility effects
+ */
+
+@import 'tailwindcss';
+
+/* ── Tailwind Theme Customization ────────────────────────────────────────── */
+@theme {
+  --color-background: var(--background);
+  --color-background-elevated: var(--background-elevated);
+  --color-background-hover: var(--background-hover);
+
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-subtle: var(--foreground-subtle);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-border: var(--border);
+  --color-border-hover: var(--border-hover);
+  --color-ring: var(--ring);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --animate-fade-in: fade-in 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-fade-out: fade-out 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-up: slide-up 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-down: slide-down 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-scale-in: scale-in 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-shimmer: shimmer 2s infinite linear;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slide-down {
+  from { transform: translateY(-12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes scale-in {
+  from { transform: scale(0.97); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ── Light / Dark Mode Tokens ────────────────────────────────────────────── */
+:root {
+  /* Spacing and Radius tokens */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --font-inter: var(--font-inter);
+
+  /* Light Theme Palette */
+  --background: #fafafa;
+  --background-elevated: #ffffff;
+  --background-hover: #f4f4f5;
+
+  --foreground: #09090b;
+  --foreground-muted: #71717a;
+  --foreground-subtle: #a1a1aa;
+
+  --accent: #6d28d9;
+  --accent-hover: #5b21b6;
+  --accent-foreground: #ffffff;
+
+  --border: #e4e4e7;
+  --border-hover: #d4d4d8;
+  --ring: #6d28d9;
+}
+
+/* Force Dark class mapping */
+.dark {
+  /* Dark Theme Palette */
+  --background: #0e0e10;
+  --background-elevated: #161619;
+  --background-hover: #1c1c21;
+
+  --foreground: #f4f4f5;
+  --foreground-muted: #a1a1aa;
+  --foreground-subtle: #52525b;
+
+  --accent: #a78bfa;
+  --accent-hover: #c4b5fd;
+  --accent-foreground: #0c0a09;
+
+  --border: #232327;
+  --border-hover: #303036;
+  --ring: #8b5cf6;
+}
+
+/* ── Base Element Styles ────────────────────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scrollbar-gutter: stable;
+    /* Respect OS reduced-motion settings */
+    @media (prefers-reduced-motion: reduce) {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    line-height: 1.6;
+    transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Clear focus styles for accessibility compliance */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Text Selection color styling */
+  ::selection {
+    background-color: color-mix(in srgb, var(--accent) 25%, transparent);
+    color: var(--foreground);
+  }
+
+  /* Typography headings configuration */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+    color: var(--foreground);
+  }
+
+  h1 { font-size: 2.25rem; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.35rem; }
+
+  @media (min-width: 768px) {
+    h1 { font-size: 3rem; }
+    h2 { font-size: 2.25rem; }
+    h3 { font-size: 1.5rem; }
+  }
+
+  /* Scrollbar styles matching premium minimal design */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+    border-radius: var(--radius-full);
+    border: 2px solid var(--background);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--border-hover);
+  }
+}
+
+/* ── Utility Classes ─────────────────────────────────────────────────────── */
+@layer utilities {
+  /* Ambient Cinematic Background Glows */
+  .bg-radial-glow {
+    background: radial-gradient(
+      800px circle at 50% 200px,
+      color-mix(in srgb, var(--accent) 7%, transparent),
+      transparent 80%
+    );
+  }
+
+  /* Shimmer background for loading skeleton components */
+  .animate-skeleton {
+    background: linear-gradient(
+      90deg,
+      var(--background-elevated) 25%,
+      var(--background-hover) 50%,
+      var(--background-elevated) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+  }
+
+  /* Glassmorphic elevation */
+  .glass-elevated {
+    background-color: color-mix(in srgb, var(--background-elevated) 80%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Safe transition wrapper */
+  .transition-theme {
+    transition: background-color 300ms cubic-bezier(0.16, 1, 0.3, 1),
+                color 300ms cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 300ms cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 300ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
