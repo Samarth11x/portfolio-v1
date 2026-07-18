@@ -22,7 +22,7 @@ export default function EngineeringPage() {
         <Container>
           
           {/* Header */}
-          <div className="max-w-3xl mb-12 animate-slide-up">
+          <div className="max-w-3xl mx-auto text-center mb-12 animate-slide-up">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-foreground">
               Proof of Engineering
             </h1>
