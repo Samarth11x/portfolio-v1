@@ -43,7 +43,7 @@ export const heroContent: HeroContent = {
     },
     secondary: {
       label: 'Download Resume',
-      href: '/resume',
+      href: '/resume/Samarth_Patil_Resume.pdf',
     },
   },
 };

@@ -31,7 +31,7 @@ export const socialContent: SocialContent = {
   },
   resume: {
     platform: 'Resume',
-    href: '/resume',
+    href: '/resume/Samarth_Patil_Resume.pdf',
     external: false,
   },
   location: 'Earth',
