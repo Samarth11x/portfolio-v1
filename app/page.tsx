@@ -6,7 +6,6 @@ import { Button, Card, CardHeader, CardBody, Badge, Tag, Divider } from '@/compo
 
 import { heroContent } from '@/content/hero';
 import { socialContent } from '@/content/social';
-import { techStackContent } from '@/content/techstack';
 
 
 /**
